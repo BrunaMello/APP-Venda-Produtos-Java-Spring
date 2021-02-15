@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Inicial Mundi App</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div th:each="pedido : ${pedidos}">
+    <div th:text="${pedido.nomeProduto}">Nome do Produto:</div>
+    <div>Valor: <span th:text="${pedido.valorNegociado}">200.99</span></div>
+    <div>Data da Entrega <span>10/02/2021</span></div>
+
+    <div>Produto</div>
+    <div><input th:value="${pedido.urlProduto}">Url Produto</div>
+
+    <div>Descrição</div>
+    <div><textarea th:text="${pedido.descricao}">Descrição do Pedido</textarea></div>
+
+    <!--    <div><img th:src="${pedido.urlImagem}"></div>-->
+
+
+    <div class="container">
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-header" th:text="${pedido.nomeProduto}">Card title</h5>
+            <img th:src="${pedido.urlImagem}" class="card-img-top">
+            <div class="card-body">
+                <p class="card-text" th:text="${pedido.descricao}">Some quick example text to build on the card title
+                    and make up the bulk of the card's content.</p>
+                <a th:href="${pedido.urlProduto}" class="btn btn-primary">Url Produto</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
