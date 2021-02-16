@@ -1,10 +1,20 @@
 package com.brunamello.mvc.mudi.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
+@Entity
 public class Pedido {
+
+    @javax.persistence.Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nomeProduto;
     private BigDecimal valorNegociado;
     private LocalDate data;
@@ -58,5 +68,13 @@ public class Pedido {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

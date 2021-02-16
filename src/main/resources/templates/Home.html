@@ -13,19 +13,6 @@
 <body>
 
 <div th:each="pedido : ${pedidos}">
-    <div th:text="${pedido.nomeProduto}">Nome do Produto:</div>
-    <div>Valor: <span th:text="${pedido.valorNegociado}">200.99</span></div>
-    <div>Data da Entrega <span>10/02/2021</span></div>
-
-    <div>Produto</div>
-    <div><input th:value="${pedido.urlProduto}">Url Produto</div>
-
-    <div>Descrição</div>
-    <div><textarea th:text="${pedido.descricao}">Descrição do Pedido</textarea></div>
-
-    <!--    <div><img th:src="${pedido.urlImagem}"></div>-->
-
-
     <div class="container">
         <div class="card" style="width: 18rem;">
             <h5 class="card-header" th:text="${pedido.nomeProduto}">Card title</h5>
