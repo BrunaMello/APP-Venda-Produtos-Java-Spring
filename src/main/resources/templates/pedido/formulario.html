@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário Mundi App</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet"/>
+</head>
+
+
+<body>
+
+<div>
+    <nav class="navbar navbar-light navbar-expand fixed-top bg-secondary text-uppercase mb-3" id="mainNav">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">Novo Pedido</a><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" aria-controls="navbarResponsive"
+                                                                                                               aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">"
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">todos</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">aguardando</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">aprovado</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" role="presentation"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">entregue</a></li>
+                </ul>
+                <a><button class="btn btn-outline-primary my-2 my-sm-0 text-uppercase text-white rounded font-weight-bold">Novo</button></a>
+
+            </div>
+        </div>
+    </nav>
+</div>
+<section style="margin-top: 50px">
+    <form action="/pedido/novo" method="post">
+        <div>
+            <label for="nomeProduto">Produto</label>
+            <input name="nomeProduto" placeholder="Nome do Produto"/>
+            <small>Informe qual o nome do produto</small>
+        </div>
+        <div>
+            <label for="urlProduto">URL</label>
+            <input name="urlProduto" placeholder="URL do Produto"/>
+            <small>Informe qual a url do produto</small>
+        </div>
+        <div>
+            <label for="imgProduto">Imagem do Produto</label>
+            <input name="imgProduto" placeholder="Imagem do produto"/>
+            <small>Informe qual a url do produto</small>
+        </div>
+        <div>
+            <label for="descProduto">Descrição do Produto</label>
+            <textarea name="descProduto" placeholder="Descrição do produto"></textarea>
+            <small>Descreva aqui as informações do produto</small>
+        </div>
+        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 text-uppercase text-black-50 rounded font-weight-bold">Cadastrar Produto</button>
+    </form>
+</section>
+
+<script th:src="@{/js/cssandjs/jquery.js}"></script>
+<script th:src="@{/js/cssandjs/freelancer.js}"></script>
+<script th:src="@{/js/cssandjs/bootstrap.js}"></script>
+<!--    <script src="../static.js.cssandjs/js/bootstrap.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>-->
+<!--    <script src="../static.js.cssandjs/js/freelancer.js"></script>-->
+</body>
+</html>
