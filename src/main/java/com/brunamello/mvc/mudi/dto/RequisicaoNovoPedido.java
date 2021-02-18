@@ -1,13 +1,25 @@
 package com.brunamello.mvc.mudi.dto;
 
 import com.brunamello.mvc.mudi.model.Pedido;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.validation.constraints.NotBlank;
+
 
 public class RequisicaoNovoPedido {
 
+    @NotBlank
     private String nomeProduto;
+
+    @NotBlank
     private String urlProduto;
+
+    @NotBlank
     private String imgProduto;
+
+    @NotBlank
     private String descProduto;
+
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -50,4 +62,8 @@ public class RequisicaoNovoPedido {
         return pedido;
 
     }
+
+
+
+
 }
