@@ -1,6 +1,7 @@
 package com.brunamello.mvc.mudi.dto;
 
 import com.brunamello.mvc.mudi.model.Pedido;
+import com.brunamello.mvc.mudi.model.StatusPedido;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.constraints.NotBlank;
@@ -59,6 +60,7 @@ public class RequisicaoNovoPedido {
         pedido.setUrlProduto(urlProduto);
         pedido.setUrlImagem(imgProduto);
         pedido.setDescricao(descProduto);
+        pedido.setStatus(StatusPedido.AGUARDANDO);
         return pedido;
 
     }

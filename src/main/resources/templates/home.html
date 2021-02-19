@@ -1,59 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="thymeleaf.org ">
-<head>
-    <meta charset="UTF-8">
-    <title>Página Inicial Mundi App</title>
+<head th:replace="~{base :: head}"></head>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
-    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet"/>
-    <link rel="stylesheet" href="../static/styles/cssandjs/main.css">
-
-</head>
 
 <body id="page-top">
-<nav class="navbar navbr-light navbar-expand fixed-top bg-secondary text-uppercase mb-3" id="mainNav">
-    <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">Muvi App</a>
-        <button data-toggle="collapse" data-target="#navbarResponsive"
-                class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded"
-                aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                        class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">todos</a></li>
-                <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                        class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">aguardando</a></li>
-                <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                        class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">aprovado</a></li>
-                <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                        class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">entregue</a></li>
-            </ul>
-            <a href="/pedido/formulario">
-                <button class="btn btn-outline-primary my-2 my-sm-0 text-uppercase text-white rounded font-weight-bold">
-                    Novo Pedido
-                </button>
-            </a>
-
-        </div>
-    </div>
-</nav>
-
+<div th:replace="~{base :: cabecalho}"></div>
 <section id="portfolio" class="portfolio">
     <div th:each="pedido : ${pedidos}" class="container" style="margin-top: 50px; position: center">
         <div class="container">
             <div class="row row-cols-3 row-cols-md-2 g-4">
                 <div class="col-1">
-                    <div class="card" style="width: 18rem;">
-                        <h5 class="card-header" th:text="${pedido.nomeProduto}">Card title</h5>
+                    <div class="card" style="width: 25rem;">
+                        <th:block th:switch="${#strings.toString(pedido.status)}">
+                            <div th:case="TODOS" class="card-header alert-primary" th:text="${pedido.nomeProduto}">Card title</div>
+                            <div th:case="AGUARDANDO" class="card-header alert-warning" th:text="${pedido.nomeProduto}">Card title</div>
+                            <div th:case="APROVADO" class="card-header alert-success" th:text="${pedido.nomeProduto}">Card title</div>
+                            <div th:case="ENTREGUE" class="card-header alert-info" th:text="${pedido.nomeProduto}">Card title</div>
+                        </th:block>
                         <img th:src="${pedido.urlImagem}" class="card-img-top">
                         <div class="card-body">
-                            <p class="card-text" th:text="${pedido.descricao}">Some quick example text to build on the
-                                card
-                                title
-                                and make up the bulk of the card's content.</p>
+
+                            <a>Data de Entrega: <p class="card-text" th:text="${#temporals.format(pedido.data, 'dd/MM/yyyy')}"></p></a>
+                            <a>Valor Negociado: <p class="card-text" th:if="${pedidoNegociado} != null" th:text="${'€' + #numbers.formatDecimal(pedido.valorNegociado,3,'POINT',2,'COMMA')}"></p></a>
+                            <a>Descrição do Produto: <p class="card-text" th:text="${pedido.descricao}"></p></a>
                             <a th:href="${pedido.urlProduto}" style="color: #e83e8c">Url do Produto</a>
                         </div>
                     </div>
