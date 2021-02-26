@@ -13,7 +13,7 @@
             <form th:object="${requisicaoNovoPedido}" action="/pedido/novo" method="post">
                 <div class="form-group">
                     <label for="nomeProduto" style="color: #e83e8c;font-size: 16pt">Nome do Produto</label>
-                    <input th:field="*{nomeProduto}" class="form-control " th:errorclass="is-invalid" placeholder="Nome do Produto"/>
+                    <input th:field="*{nomeProduto}" class="form-control" th:errorclass="is-invalid" placeholder="Nome do Produto"/>
                     <small>Informe qual o nome do produto</small>
                     <div class="invalid-feedback" th:errors="*{nomeProduto}">Erro no nome do produto</div>
                 </div>

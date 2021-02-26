@@ -2,34 +2,57 @@
 <html lang="pt-br" xmlns:th="thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="thymeleaf.org ">
 <head th:replace="~{base :: head}"></head>
-
-
 <body id="page-top">
 <div th:replace="~{base :: cabecalho}"></div>
-<section id="portfolio" class="portfolio">
-    <div th:each="pedido : ${pedidos}" class="container" style="margin-top: 50px; position: center">
-        <div class="container">
-            <div class="row row-cols-3 row-cols-md-2 g-4">
-                <div class="col-1">
-                    <div class="card" style="width: 25rem;">
-                        <th:block th:switch="${#strings.toString(pedido.status)}">
-                            <div th:case="TODOS" class="card-header alert-primary" th:text="${pedido.nomeProduto}">Card title</div>
-                            <div th:case="AGUARDANDO" class="card-header alert-warning" th:text="${pedido.nomeProduto}">Card title</div>
-                            <div th:case="APROVADO" class="card-header alert-success" th:text="${pedido.nomeProduto}">Card title</div>
-                            <div th:case="ENTREGUE" class="card-header alert-info" th:text="${pedido.nomeProduto}">Card title</div>
-                        </th:block>
-                        <img th:src="${pedido.urlImagem}" class="card-img-top">
-                        <div class="card-body">
 
-                            <a>Data de Entrega: <p class="card-text" th:text="${#temporals.format(pedido.data, 'dd/MM/yyyy')}"></p></a>
-                            <a>Valor Negociado: <p class="card-text" th:if="${pedidoNegociado} != null" th:text="${'€' + #numbers.formatDecimal(pedido.valorNegociado,3,'POINT',2,'COMMA')}"></p></a>
-                            <a>Descrição do Produto: <p class="card-text" th:text="${pedido.descricao}"></p></a>
-                            <a th:href="${pedido.urlProduto}" style="color: #e83e8c">Url do Produto</a>
+
+<section id="portfolio" class="portfolio">
+    <div th:each="pedido : ${pedidos}" class="container" style="margin-top: 10px; position: relative; padding: 10px">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded" style="padding: 20px">
+            <th:block th:switch="${#strings.toString(pedido.status)}">
+                <div th:case="AGUARDANDO" class="card-header border rounded"
+                     style="background-color: rgba(245, 223, 77, 0.35); padding-bottom: 5px"><h4
+                        class="title text-black-50 text-uppercase" style="text-align: center"
+                        th:text="${pedido.nomeProduto}"></h4></div>
+                <div th:case="APROVADO" class="card-header border rounded"
+                     style="background-color:  rgba(164, 219, 232, 0.50); padding-bottom: 5px"><h4
+                        class="title text-black-50 text-uppercase" style="text-align: center;"
+                        th:text="${pedido.nomeProduto}"></h4></div>
+                <div th:case="ENTREGUE" class="card-header border rounded"
+                     style="background-color: rgba(160, 218, 169, 0.50); padding-bottom: 5px"><h4
+                        class="title text-black-50 text-uppercase" style="text-align: center;"
+                        th:text="${pedido.nomeProduto}"></h4></div>
+            </th:block>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 col-sm-8 mb-3">
+                        <div class="row">
+                            <a class="textocorpo">Data de Entrega: <span
+                                    class="card-text font-weight-bold text-black-50"
+                                    th:text="${ #temporals.format(pedido.data, 'dd/MM/yyyy')}"></span></a>
+                        </div>
+                        <div class="row">
+                            <a>Valor Negociado: <span class="card-text font-weight-bold text-black-50"
+                                                      th:text="${'€' + #numbers.formatDecimal(pedido.valorNegociado,3,'POINT',2,'COMMA')}"></span></a>
+                        </div>
+                        <div class="row">
+                            <a>Descrição do Produto: <span class="card-text font-weight-bold text-black-50" th:text="${pedido.descricao}"></span></a>
+                        </div>
+                        <div class="row">
+
                         </div>
                     </div>
+                    <div class="col-12 col-sm-4">
+                        <div>
+                            <img class="img-thumbnail rounded float-left border" style="margin-bottom: 10px" th:src="${pedido.urlImagem}"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary my-2 my-sm-0 text-uppercase text-white rounded font-weight-bold"
+                            th:href="${pedido.urlProduto}">Acessar URL Produto
+                    </button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -38,8 +61,5 @@
 <script th:src="@{/js/cssandjs/jquery.js}"></script>
 <script th:src="@{/js/cssandjs/freelancer.js}"></script>
 <script th:src="@{/js/cssandjs/bootstrap.js}"></script>
-<!--    <script src="../static.js.cssandjs/js/bootstrap.js"></script>-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>-->
-<!--    <script src="../static.js.cssandjs/js/freelancer.js"></script>-->
 </body>
 </html>
