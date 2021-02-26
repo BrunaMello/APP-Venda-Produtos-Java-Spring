@@ -18,10 +18,10 @@ For the Frontend was used the following tecnologies:
 The 1.0 Version the Aplication can do the requisitions:
 
 
-![GitHub](Screenshot.png)
+![GitHub](appmudi.png)
 
 
-Heroku Host: https://api-rest-crud-produto.herokuapp.com/swagger-ui.html#/produto-resource
+Heroku Host: https://app-mundi.herokuapp.com/home
 
 
 
