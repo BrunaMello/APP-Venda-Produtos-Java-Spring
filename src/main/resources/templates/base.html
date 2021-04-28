@@ -37,7 +37,14 @@
                     </button>
                 </a>
 
+                <a sec:authorize="isAnonymous()" href="/login" class="text-white">
+                    Login
+                </a>
+                <a onclick="document.querySelector('#form-login').submit()" sec:authorize="!isAnonymous()" href="#" class="text-white">
+                    Logout</a>
+                <form id="form-login" th:action="@{/logout}" method="post"></form>
             </div>
+
         </div>
     </nav>
 </div>
