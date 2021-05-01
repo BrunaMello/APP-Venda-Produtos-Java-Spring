@@ -10,7 +10,7 @@
         <div class="card position-absolute top-50 start-50 translate-middle"
              style="width: 50rem; position: center; padding: 20px;">
             <h5 class="card-header" style="text-align: center;">Novo Pedido</h5>
-            <form th:object="${requisicaoNovoPedido}" action="/pedido/novo" method="post">
+            <form th:action="@{/pedido/novo}" th:object="${requisicaoNovoPedido}" method="post">
                 <div class="form-group">
                     <label for="nomeProduto" style="color: #e83e8c;font-size: 16pt">Nome do Produto</label>
                     <input th:field="*{nomeProduto}" class="form-control" th:errorclass="is-invalid" placeholder="Nome do Produto"/>

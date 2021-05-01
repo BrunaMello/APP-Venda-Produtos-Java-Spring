@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.validation.constraints.NotBlank;
 
 
+
 public class RequisicaoNovoPedido {
 
     @NotBlank

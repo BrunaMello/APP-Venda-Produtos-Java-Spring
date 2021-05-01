@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,9 +24,9 @@ public class HomeController {
     private PedidoRepository pedidoRepository;
 
     @GetMapping
-    public ModelAndView home(){
+    public ModelAndView home(Model model, Principal principal){
 
-        List<Pedido> pedidos = pedidoRepository.findAll();
+        List<Pedido> pedidos = pedidoRepository.findAllByUsuario(principal.getName());
         ModelAndView mv = new ModelAndView("home");
         mv.addObject("pedidos", pedidos);
         return mv;
@@ -33,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/{status}")
     public String porStatus(@PathVariable("status") String status, Model model){
-        List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase(Locale.ROOT)));
+        List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));
         model.addAttribute("pedidos", pedidos);
         model.addAttribute("status", status);
         return "home";

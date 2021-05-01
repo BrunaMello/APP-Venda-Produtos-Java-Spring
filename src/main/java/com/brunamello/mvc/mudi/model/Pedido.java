@@ -1,6 +1,6 @@
 package com.brunamello.mvc.mudi.model;
 
-import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,8 +9,9 @@ import java.time.LocalDate;
 @Entity
 public class Pedido {
 
-    @javax.persistence.Id
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nomeProduto;
@@ -19,6 +20,9 @@ public class Pedido {
     private String urlProduto;
     private String urlImagem;
     private String descricao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
@@ -86,4 +90,13 @@ public class Pedido {
     public void setStatus(StatusPedido status) {
         this.status = status;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
