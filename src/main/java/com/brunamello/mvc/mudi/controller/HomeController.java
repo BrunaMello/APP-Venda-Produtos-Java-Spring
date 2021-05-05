@@ -29,7 +29,6 @@ public class HomeController {
     public ModelAndView home(Model model, Principal principal){
 
         Sort sort = Sort.by("data").ascending();
-
         PageRequest paginacao = PageRequest.of(0,1, sort);
 
         List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, paginacao);
