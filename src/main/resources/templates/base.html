@@ -23,15 +23,46 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                            th:classappend="${status} == null ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/home">todos</a></li>
+                            th:classappend="${status} == null ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" th:href="@{/usuario/pedido}">todos</a></li>
                     <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                            th:classappend="${status} == 'aguardando' ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/home/aguardando">aguardando</a></li>
+                            th:classappend="${status} == 'aguardando' ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" th:href="@{/usuario/pedido/aguardando}">aguardando</a></li>
                     <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                            th:classappend="${status} == 'aprovado' ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/home/aprovado">aprovado</a></li>
+                            th:classappend="${status} == 'aprovado' ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" th:href="@{/usuario/pedido/aprovado}">aprovado</a></li>
                     <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
-                            th:classappend="${status} == 'entregue' ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/home/entregue">entregue</a></li>
+                            th:classappend="${status} == 'entregue' ? 'active'" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" th:href="@{/usuario/pedido/entregue}">entregue</a></li>
                 </ul>
-                <a href="/pedido/formulario">
+                <a th:href="@{/pedido/formulario}">
+                    <button class="btn btn-outline-primary my-2 my-sm-0 text-uppercase text-white rounded font-weight-bold">
+                        Novo Pedido
+                    </button>
+                </a>
+
+                <a sec:authorize="isAnonymous()" href="/login" class="text-white">
+                    Login
+                </a>
+                <a onclick="document.querySelector('#form-login').submit()" sec:authorize="!isAnonymous()" href="#" class="text-white">
+                    Logout</a>
+                <form id="form-login" th:action="@{/logout}" method="post"></form>
+            </div>
+
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="cabecalhosemstatus">
+    <nav class="navbar navbar-light navbar-expand fixed-top bg-secondary text-uppercase mb-10" id="mainNav">
+
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">Últimos Pedidos</a>
+
+            <button data-toggle="collapse" data-target="#navbarResponsive"
+                    class="navbar-toggler text-uppercase bg-primary text-white rounded"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+
+                <a th:href="@{/pedido/formulario}">
                     <button class="btn btn-outline-primary my-2 my-sm-0 text-uppercase text-white rounded font-weight-bold">
                         Novo Pedido
                     </button>
