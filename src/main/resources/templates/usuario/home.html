@@ -1,65 +1,52 @@
-<!DOCTYPE html>
-<html lang="pt-br" xmlns:th="thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="thymeleaf.org ">
-<head th:replace="~{base :: head}"></head>
-<body id="page-top">
-<div th:replace="~{base :: cabecalho}"></div>
-
-
-<section id="portfolio" class="portfolio">
-    <div th:each="pedido : ${pedidos}" class="container" style="margin-top: 10px; position: relative; padding: 10px">
-        <div class="card shadow-sm p-3 mb-5 bg-white rounded" style="padding: 20px">
-            <th:block th:switch="${#strings.toString(pedido.status)}">
-                <div th:case="AGUARDANDO" class="card-header border rounded"
-                     style="background-color: rgba(245, 223, 77, 0.35); padding-bottom: 5px"><h4
-                        class="title text-black-50 text-uppercase" style="text-align: center"
-                        th:text="${pedido.nomeProduto}"></h4></div>
-                <div th:case="APROVADO" class="card-header border rounded"
-                     style="background-color:  rgba(164, 219, 232, 0.50); padding-bottom: 5px"><h4
-                        class="title text-black-50 text-uppercase" style="text-align: center;"
-                        th:text="${pedido.nomeProduto}"></h4></div>
-                <div th:case="ENTREGUE" class="card-header border rounded"
-                     style="background-color: rgba(160, 218, 169, 0.50); padding-bottom: 5px"><h4
-                        class="title text-black-50 text-uppercase" style="text-align: center;"
-                        th:text="${pedido.nomeProduto}"></h4></div>
-            </th:block>
-
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-6 col-sm-8 mb-3">
-                        <div class="row">
-                            <a class="textocorpo">Data de Entrega: <span
-                                    class="card-text font-weight-bold text-black-50"
-                                    th:text="${ #temporals.format(pedido.data, 'dd/MM/yyyy')}"></span></a>
-                        </div>
-                        <div class="row">
-                            <a>Valor Negociado: <span class="card-text font-weight-bold text-black-50"
-                                                      th:text="${'€' + #numbers.formatDecimal(pedido.valorNegociado,3,'POINT',2,'COMMA')}"></span></a>
-                        </div>
-                        <div class="row">
-                            <a>Descrição do Produto: <span class="card-text font-weight-bold text-black-50" th:text="${pedido.descricao}"></span></a>
-                        </div>
-                        <div class="row">
-
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <div>
-                            <img class="img-thumbnail rounded float-left border" style="margin-bottom: 10px" th:src="${pedido.urlImagem}"/>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary my-2 my-sm-0 text-uppercase text-white rounded font-weight-bold"
-                            th:href="${pedido.urlProduto}">Acessar URL Produto
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<script th:src="@{/js/cssandjs/jquery.js}"></script>
-<script th:src="@{/js/cssandjs/freelancer.js}"></script>
-<script th:src="@{/js/cssandjs/bootstrap.js}"></script>
-</body>
+<html>
+	<head th:replace="~{base :: head}"></head>
+	<body>
+		<div th:replace="~{base :: logo}"></div>
+	
+		<div class="container">
+			<div th:replace="~{base :: titulo('Meus Pedidos')}"></div>
+		
+			<nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+				<div class="navbar-nav">
+					<a th:classappend="${status} == null ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedido}">Todos</a>
+					<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedido/aguardando}">Aguardando</a>
+					<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedido/aprovado}">Aprovado</a>
+					<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedido/entregue}">Entregue</a>
+				</div>
+				<a href="/pedido/formulario"><button class="btn btn-outline-secondary my-2 my-sm-0">Novo</button></a>
+			</nav>
+		
+			<div class="card mb-3" th:each="pedido : ${pedidos}">
+				<th:block th:switch="${pedido.status.name()}">
+					<div th:case="'AGUARDANDO'" class="card-header alert-warning" th:text="${pedido.nomeProduto}">Nome do produto</div>
+					<div th:case="'APROVADO'" class="card-header alert-success" th:text="${pedido.nomeProduto}">Nome do produto</div>
+					<div th:case="'ENTREGUE'" class="card-header alert-dark" th:text="${pedido.nomeProduto}">Nome do produto</div>
+				</th:block>
+				
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12 col-sm-8  mb-3">
+							<div class="row">
+								<div class="col-md-5">Valor: <span th:if="${pedido.valorNegociado} != null" th:text="${'R$ ' + #numbers.formatDecimal(pedido.valorNegociado,3,'POINT',2,'COMMA')}">200,99</span></div>
+								<div class="col-md-7">Data da entrega: <span th:text="${#temporals.format(pedido.dataDaEntrega, 'dd/MM/yyyy')}">10/02/2020</span></div>
+							</div>
+							
+							<div>Produto</div>
+							<div> <input class="form-control" th:value="${pedido.urlProduto}" value="url do produto"/></div>
+							
+							<div>Descrição</div>
+							<div>
+								<textarea class="form-control" th:text="${pedido.descricao}">descrição do pedido</textarea>
+							</div>
+						</div>
+						<div class="col-12 col-sm-4">
+							<div>
+								<img class="img-thumbnail" th:src="${pedido.urlImagem}" src=""/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

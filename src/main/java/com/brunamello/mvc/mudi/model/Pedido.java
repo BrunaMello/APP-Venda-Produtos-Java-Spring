@@ -2,9 +2,12 @@ package com.brunamello.mvc.mudi.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pedido {
@@ -16,16 +19,28 @@ public class Pedido {
 
     private String nomeProduto;
     private BigDecimal valorNegociado;
-    private LocalDate data;
+    private LocalDate dataDaEntrega;
     private String urlProduto;
     private String urlImagem;
     private String descricao;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.LAZY)
+    private List<Oferta> ofertas;
+
+    public List<Oferta> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<Oferta> ofertas) {
+        this.ofertas = ofertas;
+    }
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -43,12 +58,12 @@ public class Pedido {
         this.valorNegociado = valorNegociado;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDate getDataDaEntrega() {
+        return dataDaEntrega;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setDataDaEntrega(LocalDate data) {
+        this.dataDaEntrega = data;
     }
 
     public String getUrlProduto() {
